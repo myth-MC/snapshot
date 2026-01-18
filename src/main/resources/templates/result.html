@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View Minecraft server debug log results">
+    <meta name="theme-color" content="#ff66cc" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0e1a11" media="(prefers-color-scheme: dark)">
+    <title>Snapshot | Log Result</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <main>
+        <div class="container">
+            <nav class="result-nav">
+                <a href="/search" class="back-link" aria-label="Go back to search page">
+                    <span aria-hidden="true">←</span> Back
+                </a>
+            </nav>
+            
+            <header class="result-header">
+                <h1 class="result-title">
+                    <span aria-hidden="true">📊</span>
+                    Log Result for <code class="debug-code" th:text="${code}">DBG-XXXXXX</code>
+                </h1>
+            </header>
+
+            <section th:if="${log != null}" class="log-details">
+                <article class="log-section">
+                    <h2 class="log-section-title">
+                        <span aria-hidden="true">👁️</span>
+                        General Information
+                    </h2>
+                    <dl class="log-details-list">
+                        <dt>UUID:</dt>
+                        <dd><code th:text="${log.uuid}"></code></dd>
+                        
+                        <dt>Timestamp:</dt>
+                        <dd th:text="${formattedTimestamp}"></dd>
+                        
+                        <dt>Requested by:</dt>
+                        <dd th:text="${log.requester}"></dd>
+                    </dl>
+                </article>
+
+                <article class="log-section">
+                    <h2 class="log-section-title">
+                        <span aria-hidden="true">🎛️</span>
+                        Server Environment
+                    </h2>
+                    <dl class="log-details-list">
+                        <dt>Server implementation:</dt>
+                        <dd th:text="${log.serverSoftware}"></dd>
+                        
+                        <dt>Server version:</dt>
+                        <dd th:text="${log.serverVersion}"></dd>
+                        
+                        <dt>Online mode:</dt>
+                        <dd th:text="${log.serverOnlineMode}"></dd>
+                    </dl>
+                </article>
+
+                <article class="log-section">
+                    <h2 class="log-section-title">
+                        <span aria-hidden="true">📦</span>
+                        Plugin Information
+                    </h2>
+                    <dl class="log-details-list">
+                        <dt>Plugin name:</dt>
+                        <dd th:text="${log.pluginName}"></dd>
+                        
+                        <dt>Plugin version:</dt>
+                        <dd th:text="${log.pluginVersion}"></dd>
+                    </dl>
+                </article>
+
+                <!-- Extra Data Section -->
+                <article th:if="${extraFields != null}" class="log-section">
+                    <h2 class="log-section-title">
+                        <span aria-hidden="true">📎</span>
+                        Additional Data
+                    </h2>
+
+                    <details th:each="entry : ${extraFields}" class="log-details-expandable">
+                        <summary class="log-details-summary">
+                            <strong th:text="${entry.value.label}"></strong>
+                            <span class="field-type" th:text="${entry.value.type}"></span>
+                        </summary>
+                        
+                        <!-- String field with optional Base64 decoding -->
+                        <div th:if="${entry.value.type == 'string'}">
+                            <div th:if="${entry.value.decodedValue != null}">
+                                <pre class="code-block" th:text="${entry.value.decodedValue}"></pre>
+                            </div>
+                            <div th:if="${entry.value.decodedValue == null}">
+                                <pre class="code-block" th:text="${entry.value.value}"></pre>
+                            </div>
+                        </div>
+                        
+                        <!-- Array field -->
+                        <div th:if="${entry.value.type == 'array'}">
+                            <ul class="plugin-list">
+                                <li th:each="item : ${entry.value.arrayValue}" th:text="${item}"></li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Object field (nested) -->
+                        <div th:if="${entry.value.type == 'object'}">
+                            <details th:each="nestedEntry : ${entry.value.nestedFields}" class="log-details-expandable nested-field">
+                                <summary class="log-details-summary">
+                                    <strong th:text="${nestedEntry.value.label}"></strong>
+                                    <span class="field-type" th:text="${nestedEntry.value.type}"></span>
+                                </summary>
+                                <div th:if="${nestedEntry.value.type == 'string'}">
+                                    <div th:if="${nestedEntry.value.decodedValue != null}">
+                                        <pre class="code-block" th:text="${nestedEntry.value.decodedValue}"></pre>
+                                    </div>
+                                    <div th:if="${nestedEntry.value.decodedValue == null}">
+                                        <pre class="code-block" th:text="${nestedEntry.value.value}"></pre>
+                                    </div>
+                                </div>
+                                <div th:if="${nestedEntry.value.type == 'array'}">
+                                    <ul class="plugin-list">
+                                        <li th:each="item : ${nestedEntry.value.arrayValue}" th:text="${item}"></li>
+                                    </ul>
+                                </div>
+                                <div th:if="${nestedEntry.value.type != 'string' and nestedEntry.value.type != 'array' and nestedEntry.value.type != 'object'}">
+                                    <pre class="code-block" th:text="${nestedEntry.value.value}"></pre>
+                                </div>
+                            </details>
+                        </div>
+                        
+                        <!-- Other types (number, boolean, etc.) -->
+                        <div th:if="${entry.value.type != 'string' and entry.value.type != 'array' and entry.value.type != 'object'}">
+                            <pre class="code-block" th:text="${entry.value.value}"></pre>
+                        </div>
+                    </details>
+                </article>
+            </section>
+
+            <section th:if="${log == null}" class="error-section">
+                <div class="error-message">
+                    <p class="error-text">No log found for code <code class="debug-code" th:text="${code}">DBG-XXXXXX</code>.</p>
+                </div>
+                
+                <article class="error-article">
+                    <h2 class="error-title">
+                        <span aria-hidden="true">💔</span>
+                        Possible Causes
+                    </h2>
+                    <ul class="error-list">
+                        <li>
+                            <strong>The log has expired.</strong> 
+                            Logs are automatically deleted 24 hours after creation for privacy and data protection reasons.
+                        </li>
+                        <li>
+                            <strong>Incorrect or invalid log ID.</strong> 
+                            The provided log identifier may be incorrect, incomplete, or contain a typo.
+                        </li>
+                        <li>
+                            <strong>The log was never created successfully.</strong> 
+                            Please check your server's console for errors or exceptions.
+                        </li>
+                    </ul>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <script th:src="@{/js/theme.js}" defer></script>
+</body>
+</html>

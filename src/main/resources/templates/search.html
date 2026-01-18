@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Search for Minecraft server debug logs using a debug code">
+    <meta name="theme-color" content="#ff66cc" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0e1a11" media="(prefers-color-scheme: dark)">
+    <title>Snapshot - Search Server Logs</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <main>
+        <div class="container container--centered">
+            <header class="page-header">
+                <h1 class="page-title">
+                    <span aria-hidden="true">🔎</span>
+                    <span class="sr-only">Search icon</span>
+                    Snapshot
+                </h1>
+            </header>
+            
+            <section class="search-section">
+                <form method="post" action="/search" class="search-form" aria-label="Search for debug log">
+                    <label for="code" class="search-label">Enter debug code:</label>
+                    <div class="search-input-group">
+                        <input 
+                            type="text" 
+                            id="code" 
+                            name="code" 
+                            class="search-input"
+                            placeholder="DBG-ABC123" 
+                            maxlength="10" 
+                            required
+                            autocomplete="off"
+                            aria-required="true"
+                            aria-describedby="code-help">
+                        <button type="submit" class="search-button">Search</button>
+                    </div>
+                    <small id="code-help" class="search-help">Enter a 10-character debug code (e.g., DBG-ABC123)</small>
+                </form>
+            </section>
+
+            <hr class="divider">
+
+            <section class="info-section">
+                <article class="info-article">
+                    <h2 class="info-title">
+                        <span aria-hidden="true">☕️</span>
+                        Overview
+                    </h2>
+                    <p>
+                        <strong>Snapshot</strong> is a tool designed to quickly collect key server 
+                        data for troubleshooting. By generating a unique <strong>debug code</strong>, it 
+                        simplifies the process of identifying and resolving issues with your 
+                        server's configuration, plugins, and settings.
+                    </p>
+                </article>
+
+                <article class="info-article">
+                    <h2 class="info-title">
+                        <span aria-hidden="true">🔐</span>
+                        Privacy Assurance
+                    </h2>
+                    <p>
+                        Data is only kept in our servers for 24 hours to ensure your information
+                        is handled responsibly and securely. After this period, <strong>all logs and
+                        related data are deleted.</strong>
+                    </p>
+                    <p>
+                        During these 24 hours, we store the following data:
+                    </p>
+                    <ul class="info-list">
+                        <li>Server IP and port (hidden, temporarily stored for rate limiting purposes)</li>
+                        <li>Plugin version and server version</li>
+                        <li>List of active plugins (you can opt out)</li>
+                        <li>Relevant plugin settings (you can opt out)</li>
+                        <li>Timestamp of when this data was collected</li>
+                    </ul>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <script th:src="@{/js/theme.js}" defer></script>
+</body>
+</html>

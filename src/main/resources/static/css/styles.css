@@ -1,0 +1,647 @@
+/* ==========================================================================
+   CSS Variables - Theme Configuration
+   ========================================================================== */
+
+:root {
+    --bg: white;
+    --container-bg: #ffffff60;
+    --footer-bg: #ffffff60;
+    --form-bg: #ffffff30;
+    --button-hover-bg: #00000005;
+    --code-bg: #ffffff30;
+    --footer-color: #777;
+    --button-color: #000;
+    --text-color: #000;
+    --border-color: #00000020;
+    --link-color: #0066cc;
+    --link-hover-color: #004499;
+}
+
+[data-theme="light"] {
+    --bg: white;
+    --container-bg: #ffffff60;
+    --footer-bg: #ffffff60;
+    --form-bg: #ffffff30;
+    --button-hover-bg: #00000005;
+    --code-bg: #ffffff30;
+    --footer-color: #777;
+    --button-color: #000;
+    --text-color: #000;
+    --border-color: #00000020;
+    --link-color: #0066cc;
+    --link-hover-color: #004499;
+}
+
+[data-theme="dark"] {
+    /* --bg: linear-gradient(135deg, #0e1a11, #0b1f17, #0a1a14, #132418, #0e2218) 0 0 / 400% 400%; */
+    --bg: #0e2218;
+    --container-bg: #ffffff10;
+    --footer-bg: #ffffff10;
+    --form-bg: #00000030;
+    --button-hover-bg: #ffffff05;
+    --code-bg: #00000030;
+    --footer-color: #fff;
+    --button-color: #ddd;
+    --text-color: #ddd;
+    --border-color: #ffffff20;
+    --link-color: #66aaff;
+    --link-hover-color: #88ccff;
+}
+
+[data-theme="pastel"] {
+    /* --bg: linear-gradient(135deg, #ff66cc4d, #6699ff4d, #66ffcc4d, #ffff664d, #ff99664d) 0 0/400% 400%; */
+    --bg: #ff66cc4d;
+    --container-bg: #ffffff60;
+    --footer-bg: #ffffff60;
+    --form-bg: #ffffff30;
+    --button-hover-bg: #00000005;
+    --code-bg: #ffffff30;
+    --footer-color: #777;
+    --button-color: #000;
+    --text-color: #000;
+    --border-color: #00000020;
+    --link-color: #0066cc;
+    --link-hover-color: #004499;
+}
+
+[data-theme="oled"] {
+    --bg: #000;
+    --container-bg: #ffffff10;
+    --footer-bg: #ffffff10;
+    --form-bg: #00000030;
+    --button-hover-bg: #ffffff05;
+    --code-bg: #00000030;
+    --footer-color: #fff;
+    --button-color: #ddd;
+    --text-color: #ddd;
+    --border-color: #ffffff20;
+    --link-color: #66aaff;
+    --link-hover-color: #88ccff;
+}
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #000;
+    background: var(--bg);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0.5rem;
+}
+
+.container {
+    background-color: var(--container-bg);
+    border-radius: 18px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 800px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.container--centered {
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 2.5rem;
+        margin: 2rem;
+        width: 70%;
+    }
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.info-title,
+.log-section-title,
+.error-title {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.result-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+strong {
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Links
+   ========================================================================== */
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover,
+a:focus {
+    color: var(--link-hover-color);
+    text-decoration: underline;
+}
+
+a:focus {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.footer-link {
+    color: var(--footer-color);
+}
+
+.footer-link:hover,
+.footer-link:focus {
+    color: var(--text-color);
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+.search-section {
+    margin-bottom: 2rem;
+}
+
+.search-form {
+    font-size: 1.25rem;
+}
+
+.search-label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.search-input-group {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    background-color: var(--form-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    min-width: 200px;
+    text-align: center;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.search-input:focus {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+    border-color: var(--link-color);
+}
+
+.search-help {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.search-button {
+    background-color: var(--form-bg);
+    border: 1px solid var(--border-color);
+    color: var(--button-color);
+    border-radius: 18px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-weight: 500;
+}
+
+.search-button:hover {
+    background-color: var(--button-hover-bg);
+    transform: translateY(-1px);
+}
+
+.search-button:active {
+    transform: translateY(0);
+}
+
+.search-button:focus {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+button {
+    background-color: var(--form-bg);
+    border: 1px solid var(--border-color);
+    color: var(--button-color);
+    border-radius: 18px;
+    padding: 12px;
+    margin: 0.25rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+button:focus {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+}
+
+button.active {
+    transform: scale(1.15);
+}
+
+.theme-button {
+    min-width: 44px;
+    min-height: 44px;
+}
+
+/* ==========================================================================
+   Code and Formatted Text
+   ========================================================================== */
+
+code,
+.debug-code {
+    background-color: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+}
+
+.code-block {
+    background-color: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-x: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 1rem 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* ==========================================================================
+   Lists
+   ========================================================================== */
+
+ul, ol {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.info-list,
+.error-list {
+    max-width: 90%;
+    margin: 1rem auto;
+    text-align: left;
+}
+
+.plugin-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 1rem 0;
+}
+
+.plugin-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.plugin-list li:last-child {
+    border-bottom: none;
+}
+
+/* ==========================================================================
+   Definition Lists
+   ========================================================================== */
+
+.log-details-list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1rem;
+    margin: 1rem 0;
+}
+
+.log-details-list dt {
+    font-weight: 600;
+}
+
+.log-details-list dd {
+    margin: 0;
+}
+
+/* ==========================================================================
+   Details and Summary
+   ========================================================================== */
+
+details {
+    margin: 1rem 0;
+}
+
+.log-details-expandable {
+    margin-top: 1rem;
+}
+
+.log-details-summary {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0.5rem;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+.log-details-summary:hover {
+    background-color: var(--button-hover-bg);
+    border-radius: 4px;
+}
+
+.log-details-summary:focus {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.field-type {
+    font-size: 0.75rem;
+    font-weight: 400;
+    opacity: 0.6;
+    margin-left: 0.5rem;
+    text-transform: lowercase;
+}
+
+.plugin-count {
+    font-weight: normal;
+    opacity: 0.7;
+    font-size: 0.9em;
+}
+
+/* ==========================================================================
+   Sections
+   ========================================================================== */
+
+.info-section {
+    text-align: justify;
+}
+
+.info-article {
+    margin-bottom: 2rem;
+}
+
+.log-details {
+    text-align: left;
+}
+
+.log-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.log-section:last-child {
+    border-bottom: none;
+}
+
+.error-section {
+    text-align: left;
+}
+
+.error-message {
+    margin-bottom: 2rem;
+}
+
+.error-text {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.error-article {
+    margin-top: 2rem;
+}
+
+.result-nav {
+    margin-bottom: 1.5rem;
+}
+
+.result-header {
+    margin-bottom: 2rem;
+}
+
+/* ==========================================================================
+   Divider
+   ========================================================================== */
+
+.divider {
+    opacity: 0.1;
+    margin: 3vh 0;
+    border: none;
+    border-top: 1px solid var(--border-color);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+    margin-top: auto;
+    background-color: var(--footer-bg);
+    color: var(--footer-color);
+    border-top: 1px solid var(--border-color);
+    padding: 1.5rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-copyright {
+    margin-right: auto;
+}
+
+.footer-text {
+    font-size: 0.9em;
+    margin: 0;
+}
+
+.footer-version {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.5rem;
+    padding: 0.2em 0.5em;
+    background-color: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85em;
+    font-weight: 500;
+    opacity: 0.65;
+    transition: opacity 0.2s ease;
+}
+
+.footer-version:hover {
+    opacity: 1;
+}
+
+.footer-version-label {
+    color: var(--link-color);
+    font-weight: 600;
+    margin-right: 0.1em;
+}
+
+.footer-version-number {
+    color: var(--text-color);
+}
+
+.theme-picker {
+    display: flex;
+    gap: 0.25rem;
+    margin-left: auto;
+}
+
+/* ==========================================================================
+   Accessibility
+   ========================================================================== */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 767px) {
+    .container {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .result-title {
+        font-size: 1.5rem;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-copyright {
+        margin-right: 0;
+    }
+
+    .theme-picker {
+        margin-left: 0;
+    }
+
+    .log-details-list {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+
+    .log-details-list dt {
+        margin-top: 0.5rem;
+    }
+
+    .log-details-list dt:first-child {
+        margin-top: 0;
+    }
+}

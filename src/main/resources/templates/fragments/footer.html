@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <footer th:fragment="footer" class="site-footer">
+        <div class="footer-content">
+            <div class="footer-copyright">
+                <p class="footer-text">
+                    © 2026 myth-MC - Made with <span aria-label="love">❤️</span> by 
+                    <a href="https://github.com/myth-MC/" class="footer-link" target="_blank" rel="noopener noreferrer">
+                        the myth-MC team
+                    </a>
+                    <span th:if="${appVersion != null}" class="footer-version">
+                        <span class="footer-version-label">v</span><span class="footer-version-number" th:text="${appVersion}">x.x.x</span>
+                    </span>
+                </p>
+            </div>
+
+            <div class="theme-picker" role="group" aria-label="Theme selector">
+                <button 
+                    type="button"
+                    class="theme-button" 
+                    data-seltheme="light"
+                    aria-label="Light theme"
+                    title="Light theme">
+                    <span aria-hidden="true">💡</span>
+                </button>
+                <button 
+                    type="button"
+                    class="theme-button" 
+                    data-seltheme="dark"
+                    aria-label="Dark theme"
+                    title="Dark theme">
+                    <span aria-hidden="true">🌙</span>
+                </button>
+                <button 
+                    type="button"
+                    class="theme-button" 
+                    data-seltheme="pastel"
+                    aria-label="Pastel theme"
+                    title="Pastel theme">
+                    <span aria-hidden="true">🌸</span>
+                </button>
+                <button 
+                    type="button"
+                    class="theme-button" 
+                    data-seltheme="oled"
+                    aria-label="OLED theme"
+                    title="OLED theme">
+                    <span aria-hidden="true">⚫️</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
